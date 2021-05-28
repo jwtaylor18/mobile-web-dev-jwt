@@ -9,6 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_jt_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.NUMAD21SuJeffTaylor">
+        <activity android:name=".ClickyClicky"></activity>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
