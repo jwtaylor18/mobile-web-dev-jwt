@@ -17,20 +17,22 @@ public class ClickyClicky extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_clicky_clicky);
         pressedTextView = findViewById(R.id.textView2);
+
+        if (savedInstanceState != null) {
+            pressedText = savedInstanceState.getString("pressedText");
+            pressedTextView.setText(pressedText);
+        }
     }
 
     public void showPressedButton(View view) {
         Button b = (Button) view;
         pressedText = "Pressed: " + b.getText().toString();
         pressedTextView.setText(pressedText);
-
     }
 
-//    @Override
-//    protected void onSaveInstanceState(Bundle outState) {
-//        super.onSaveInstanceState(outState);
-//        outState.putString("pressedButton",);
-//    }
-
-
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putString("pressedText", pressedText);
+    }
 }
