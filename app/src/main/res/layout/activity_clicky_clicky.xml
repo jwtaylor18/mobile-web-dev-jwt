@@ -24,6 +24,7 @@
         android:id="@+id/button9"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:onClick="showPressedButton"
         android:text="B"
         app:layout_constraintEnd_toStartOf="@+id/button10"
         app:layout_constraintHorizontal_bias="0.5"
@@ -34,6 +35,7 @@
         android:id="@+id/button2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:onClick="showPressedButton"
         android:text="A"
         app:layout_constraintBottom_toTopOf="@+id/button11"
         app:layout_constraintEnd_toStartOf="@+id/button9"
@@ -46,6 +48,7 @@
         android:id="@+id/button10"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:onClick="showPressedButton"
         android:text="C"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -56,6 +59,7 @@
         android:id="@+id/button13"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:onClick="showPressedButton"
         android:text="F"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -66,6 +70,7 @@
         android:id="@+id/button12"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:onClick="showPressedButton"
         android:text="E"
         app:layout_constraintEnd_toStartOf="@+id/button13"
         app:layout_constraintHorizontal_bias="0.5"
@@ -76,6 +81,7 @@
         android:id="@+id/button11"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:onClick="showPressedButton"
         android:text="D"
         app:layout_constraintBottom_toTopOf="@+id/guideline2"
         app:layout_constraintEnd_toStartOf="@+id/button12"
@@ -83,5 +89,12 @@
         app:layout_constraintHorizontal_chainStyle="spread"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/button2" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:layout_editor_absoluteX="43dp"
+        tools:layout_editor_absoluteY="382dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
