@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 
@@ -42,7 +43,7 @@ public class LinkCollector extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 int pos = 0;
-                addItem(pos);
+                addItem(pos, v);
             }
         });
         setInitialInvisibility();
@@ -128,12 +129,13 @@ public class LinkCollector extends AppCompatActivity {
         recyclerView.setLayoutManager(rLayoutManger);
     }
 
-    private void addItem(int position) {
+    private void addItem(int position, View v) {
         if (validateInput()) {
             itemList.add(position, new ItemCard(et_UrlName.getText().toString(), et_Url.getText().toString()));
 //        Toast.makeText(MainActivity.this, "Add an item", Toast.LENGTH_SHORT).show();
 
             rviewAdapter.notifyItemInserted(position);
+            displaySuccessSnackBar(v);
         }
     }
 
@@ -168,5 +170,10 @@ public class LinkCollector extends AppCompatActivity {
         et_UrlName.setVisibility(View.VISIBLE);
         et_Url.setVisibility(View.VISIBLE);
         addURL.setVisibility(View.VISIBLE);
+    }
+
+    private void displaySuccessSnackBar(View v) {
+        Snackbar.make(v, "URL added to list", Snackbar.LENGTH_LONG)
+                .setAction("Action", null).show();
     }
 }
