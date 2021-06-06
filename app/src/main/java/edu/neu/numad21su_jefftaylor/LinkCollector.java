@@ -45,6 +45,7 @@ public class LinkCollector extends AppCompatActivity {
                 addItem(pos);
             }
         });
+        setInitialInvisibility();
     }
 
 
@@ -128,9 +129,44 @@ public class LinkCollector extends AppCompatActivity {
     }
 
     private void addItem(int position) {
-        itemList.add(position, new ItemCard(et_UrlName.getText().toString(), et_Url.getText().toString()));
+        if (validateInput()) {
+            itemList.add(position, new ItemCard(et_UrlName.getText().toString(), et_Url.getText().toString()));
 //        Toast.makeText(MainActivity.this, "Add an item", Toast.LENGTH_SHORT).show();
 
-        rviewAdapter.notifyItemInserted(position);
+            rviewAdapter.notifyItemInserted(position);
+        }
+    }
+
+    private boolean validateInput() {
+
+        String enteredUrl = et_Url.getText().toString().trim();
+        if (et_UrlName.getText().toString().trim().equals("")) {
+            et_UrlName.setError("Please enter a URL display name");
+            return false;
+        }
+        else if (enteredUrl.equals("")) {
+            et_Url.setError("Please enter a URL");
+            return false;
+        }
+        else if (enteredUrl.length() < 11 || (!enteredUrl.substring(0,10).equals( "http://www") &&
+                        !enteredUrl.substring(0,11).equals( "https://www"))) {
+            et_Url.setError("Please enter a properly formatted URL");
+            return false;
+        }
+        return true;
+    }
+
+    //Sets the two text entries and add URL button initially to visible
+    //Users will click the FAB to set these to visible
+    private void setInitialInvisibility() {
+        et_UrlName.setVisibility(View.INVISIBLE);
+        et_Url.setVisibility(View.INVISIBLE);
+        addURL.setVisibility(View.INVISIBLE);
+    }
+
+    public void enableURLEntry(View view) {
+        et_UrlName.setVisibility(View.VISIBLE);
+        et_Url.setVisibility(View.VISIBLE);
+        addURL.setVisibility(View.VISIBLE);
     }
 }
