@@ -66,38 +66,38 @@ public class LinkCollector extends AppCompatActivity {
 
     private void init(Bundle savedInstanceState) {
 
-//        initialItemData(savedInstanceState);
+        initialItemData(savedInstanceState);
         createRecyclerView();
     }
 
 
-//    private void initialItemData(Bundle savedInstanceState) {
-//
-//        // Not the first time to open this Activity
-//        if (savedInstanceState != null && savedInstanceState.containsKey(NUMBER_OF_ITEMS)) {
-//            if (itemList == null || itemList.size() == 0) {
-//
-//                int size = savedInstanceState.getInt(NUMBER_OF_ITEMS);
-//
-//                // Retrieve keys we stored in the instance
-//                for (int i = 0; i < size; i++) {
-//                    String urlName = savedInstanceState.getString(KEY_OF_INSTANCE + i + "0");
-//                    String url = savedInstanceState.getString(KEY_OF_INSTANCE + i + "1");
-//
-//                    ItemCard itemCard = new ItemCard(urlName, url);
-//
-//                    itemList.add(itemCard);
-//                }
-//            }
-//        }
-//        // The first time to opne this Activity
-//        else {
+    private void initialItemData(Bundle savedInstanceState) {
+
+        // Not the first time to open this Activity
+        if (savedInstanceState != null && savedInstanceState.containsKey(NUMBER_OF_ITEMS)) {
+            if (itemList == null || itemList.size() == 0) {
+
+                int size = savedInstanceState.getInt(NUMBER_OF_ITEMS);
+
+                // Retrieve keys we stored in the instance
+                for (int i = 0; i < size; i++) {
+                    String urlName = savedInstanceState.getString(KEY_OF_INSTANCE + i + "0");
+                    String url = savedInstanceState.getString(KEY_OF_INSTANCE + i + "1");
+
+                    ItemCard itemCard = new ItemCard(urlName, url);
+
+                    itemList.add(itemCard);
+                }
+            }
+        }
+        // The first time to open this Activity
+        else {
 //            itemList.add(new ItemCard("Google", "https://www.google.com/"));
 //            itemList.add(new ItemCard("ESPN", "https://www.espn.com/"));
 //            itemList.add(new ItemCard("Northeastern", "https://www.northeastern.edu/"));
-//        }
-//
-//    }
+        }
+
+    }
 
     private void createRecyclerView() {
 
@@ -115,13 +115,6 @@ public class LinkCollector extends AppCompatActivity {
 //                rviewAdapter.notifyItemChanged(position);
             }
 
-//            @Override
-//            public void onCheckBoxClick(int position) {
-//                //attributions bond to the item has been changed
-//                itemList.get(position).onCheckBoxClick(position);
-//
-//                rviewAdapter.notifyItemChanged(position);
-//            }
         };
         rviewAdapter.setOnItemClickListener(itemClickListener);
 
