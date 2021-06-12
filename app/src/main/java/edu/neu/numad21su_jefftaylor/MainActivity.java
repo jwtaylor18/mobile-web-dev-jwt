@@ -36,5 +36,10 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void openLocator(View view) {
+        Intent intent = new Intent(this, Locator.class);
+        startActivity(intent);
+    }
+
 
 }

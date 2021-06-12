@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_jt_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.NUMAD21SuJeffTaylor">
-        <activity android:name=".LinkCollector"></activity>
+        <activity android:name=".Locator"></activity>
+        <activity android:name=".LinkCollector" />
         <activity android:name=".ClickyClicky" />
         <activity android:name=".MainActivity">
             <intent-filter>
