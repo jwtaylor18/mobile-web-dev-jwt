@@ -41,5 +41,10 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void openAtYourService(View view) {
+        Intent intent = new Intent(this, AtYourService.class);
+        startActivity(intent);
+    }
+
 
 }

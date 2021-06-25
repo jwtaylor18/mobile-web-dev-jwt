@@ -2,8 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="edu.neu.numad21su_jefftaylor">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher_jt"
@@ -11,7 +12,8 @@
         android:roundIcon="@mipmap/ic_launcher_jt_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.NUMAD21SuJeffTaylor">
-        <activity android:name=".Locator"></activity>
+        <activity android:name=".AtYourService"></activity>
+        <activity android:name=".Locator" />
         <activity android:name=".LinkCollector" />
         <activity android:name=".ClickyClicky" />
         <activity android:name=".MainActivity">
