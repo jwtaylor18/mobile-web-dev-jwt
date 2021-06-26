@@ -11,17 +11,29 @@ public class AtYourService extends AppCompatActivity {
 
     private Handler textHandler = new Handler();
     TextView statusText;
+    TextView enterNumber;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_at_your_service);
         statusText = findViewById(R.id.runStatusText);
+        enterNumber = findViewById(R.id.editTextNumber);
     }
 
     public void runOnRunnableThread(View view) {
-        RunnableThread runnableThread = new RunnableThread();
-        new Thread(runnableThread).start();
+
+        int numEntered = Integer.parseInt(enterNumber.getText().toString());
+
+        if (validateNumberEntered(numEntered)) {
+            statusText.setText("Yayyy!!!!");
+        }
+        else {
+            statusText.setText("Bad input!!!");
+        }
+//
+//        RunnableThread runnableThread = new RunnableThread();
+//        new Thread(runnableThread).start();
     }
 
     class RunnableThread implements Runnable {
@@ -46,5 +58,9 @@ public class AtYourService extends AppCompatActivity {
                 }
             }
         }
+    }
+
+    private boolean validateNumberEntered(int num) {
+        return num >= 1 && num <= 10;
     }
 }
