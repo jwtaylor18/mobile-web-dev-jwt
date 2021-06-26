@@ -4,14 +4,25 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.TextView;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.ProtocolException;
+import java.net.URL;
 
 public class AtYourService extends AppCompatActivity {
 
     private Handler textHandler = new Handler();
-    TextView statusText;
-    TextView enterNumber;
+    private TextView statusText;
+    private TextView enterNumber;
+    private ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,48 +30,125 @@ public class AtYourService extends AppCompatActivity {
         setContentView(R.layout.activity_at_your_service);
         statusText = findViewById(R.id.runStatusText);
         enterNumber = findViewById(R.id.editTextNumber);
+        progressBar = findViewById(R.id.progressBar);
+
     }
 
     public void runOnRunnableThread(View view) {
 
-        int numEntered = Integer.parseInt(enterNumber.getText().toString());
-
-        if (validateNumberEntered(numEntered)) {
-            statusText.setText("Yayyy!!!!");
+        if (validateNumberEntered()) {
+            RunnableThread runnableThread = new RunnableThread();
+            new Thread(runnableThread).start();
         }
         else {
-            statusText.setText("Bad input!!!");
+            statusText.setText("Please enter a number 1-10");
         }
-//
-//        RunnableThread runnableThread = new RunnableThread();
-//        new Thread(runnableThread).start();
     }
 
     class RunnableThread implements Runnable {
 
         @Override
         public void run() {
-            for (int i = 1; i <= 10; i++) {
-                final int finalI = i;
+
+            JSONObject jObject = new JSONObject();
+            try {
+
+                String url_initial = "https://www.boredapi.com/api/activity?participants=" + enterNumber.getText().toString();
+
+                URL url = new URL(url_initial);
 
                 textHandler.post(() -> {
-                    statusText.setText("New thread (Runnable): " + finalI);
-                    if (finalI == 10) {
-                        statusText.setText("");
-                    }
+                    progressBar.setVisibility(ProgressBar.VISIBLE);
                 });
 
+//                textHandler.post(() -> {
+//                    loadingMessage.setText("Loading from Bored API...");
+//                });
+
                 try {
-                    Thread.sleep(1000);
+                    Thread.sleep(2000);
                 }
                 catch (InterruptedException e) {
                     e.printStackTrace();
                 }
+                // Get String response from the url address
+                String resp = NetworkUtil.httpResponse(url);
+
+//                textHandler.post(() -> {
+//                    loadingMessage.setText("getting here");
+//                });
+
+                // Transform String into JSONObject
+                jObject = new JSONObject(resp);
+
+                textHandler.post(() -> {
+                    progressBar.setVisibility(ProgressBar.INVISIBLE);
+                });
+
+                displayResults(jObject);
+
+
+
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (ProtocolException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (JSONException e) {
+                e.printStackTrace();
             }
+
+        }
+
+
+//            for (int i = 1; i <= 10; i++) {
+//                final int finalI = i;
+//
+//                textHandler.post(() -> {
+//                    statusText.setText("New thread (Runnable): " + finalI);
+//                    if (finalI == 10) {
+//                        statusText.setText("");
+//                    }
+//                });
+//
+//                try {
+//                    Thread.sleep(1000);
+//                }
+//                catch (InterruptedException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+        }
+
+
+    private boolean validateNumberEntered() {
+
+        if (enterNumber.getText().toString().equals("")) {
+            return false;
+        }
+        else {
+            int numEntered = Integer.parseInt(enterNumber.getText().toString());
+            return numEntered >= 1 && numEntered <= 10;
         }
     }
 
-    private boolean validateNumberEntered(int num) {
-        return num >= 1 && num <= 10;
+    private void displayResults(JSONObject jsonObject) {
+
+        textHandler.post(() -> {
+            try {
+                statusText.setText(jsonObject.getString("activity"));
+            }
+            catch (JSONException e) {
+                statusText.setText("No luck with his number - try a different number please!");
+            };
+        });
+
+//        try {
+//            statusText.setText(jsonObject.getString("activity"));
+//        }
+//        catch(JSONException e) {
+//            statusText.setText("Something went wrong");
+//        }
     }
 }
