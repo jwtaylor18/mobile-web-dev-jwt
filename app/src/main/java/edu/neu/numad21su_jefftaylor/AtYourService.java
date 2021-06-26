@@ -31,7 +31,6 @@ public class AtYourService extends AppCompatActivity {
         statusText = findViewById(R.id.runStatusText);
         enterNumber = findViewById(R.id.editTextNumber);
         progressBar = findViewById(R.id.progressBar);
-
     }
 
     public void runOnRunnableThread(View view) {
@@ -61,22 +60,15 @@ public class AtYourService extends AppCompatActivity {
                     progressBar.setVisibility(ProgressBar.VISIBLE);
                 });
 
-//                textHandler.post(() -> {
-//                    loadingMessage.setText("Loading from Bored API...");
-//                });
-
                 try {
                     Thread.sleep(2000);
                 }
                 catch (InterruptedException e) {
                     e.printStackTrace();
                 }
+
                 // Get String response from the url address
                 String resp = NetworkUtil.httpResponse(url);
-
-//                textHandler.post(() -> {
-//                    loadingMessage.setText("getting here");
-//                });
 
                 // Transform String into JSONObject
                 jObject = new JSONObject(resp);
@@ -87,8 +79,6 @@ public class AtYourService extends AppCompatActivity {
 
                 displayResults(jObject);
 
-
-
             } catch (MalformedURLException e) {
                 e.printStackTrace();
             } catch (ProtocolException e) {
@@ -98,29 +88,8 @@ public class AtYourService extends AppCompatActivity {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-
         }
-
-
-//            for (int i = 1; i <= 10; i++) {
-//                final int finalI = i;
-//
-//                textHandler.post(() -> {
-//                    statusText.setText("New thread (Runnable): " + finalI);
-//                    if (finalI == 10) {
-//                        statusText.setText("");
-//                    }
-//                });
-//
-//                try {
-//                    Thread.sleep(1000);
-//                }
-//                catch (InterruptedException e) {
-//                    e.printStackTrace();
-//                }
-//            }
-        }
-
+    }
 
     private boolean validateNumberEntered() {
 
@@ -140,15 +109,8 @@ public class AtYourService extends AppCompatActivity {
                 statusText.setText(jsonObject.getString("activity"));
             }
             catch (JSONException e) {
-                statusText.setText("No luck with his number - try a different number please!");
+                statusText.setText("No luck with this number - try a different number please!");
             };
         });
-
-//        try {
-//            statusText.setText(jsonObject.getString("activity"));
-//        }
-//        catch(JSONException e) {
-//            statusText.setText("Something went wrong");
-//        }
     }
 }
